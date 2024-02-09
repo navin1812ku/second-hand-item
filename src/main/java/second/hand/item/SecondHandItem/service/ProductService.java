@@ -12,5 +12,4 @@ public interface ProductService {
     List<ProductModel> findAll();
     List<ProductModel> getByCategory(String category);
     Response removeProduct(String id);
-    List<ProductModel> getByProducts(String product);
 }

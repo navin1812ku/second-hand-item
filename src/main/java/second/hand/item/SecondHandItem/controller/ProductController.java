@@ -33,11 +33,6 @@ public class ProductController {
         return new ResponseEntity<>(productService.getByCategory(category),HttpStatus.PROCESSING);
     }
 
-    @GetMapping("/products/{product}")
-    ResponseEntity<List<ProductModel>> products(@PathVariable String product){
-        return new ResponseEntity<>(productService.getByProducts(product),HttpStatus.OK);
-    }
-
     @DeleteMapping("/delete_product/{id}")
     ResponseEntity<Response> productDeletion(@PathVariable String id){
         return new ResponseEntity<>(productService.removeProduct(id),HttpStatus.ACCEPTED);

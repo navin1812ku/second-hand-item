@@ -1,18 +1,24 @@
 package second.hand.item.SecondHandItem.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Entity
+@Table(name = "message")
 @Data
 public class MessageModel {
     @Id
+    @Column(nullable = false)
     private String messageId;
+    @Column(nullable = false)
     private String receiverMail;
+    @Column(nullable = false)
     private String sender;
+    @Column(nullable = false)
     private String receiver;
+    @Column(nullable = false)
     private String data;
 }

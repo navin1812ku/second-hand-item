@@ -75,11 +75,6 @@ public class ProductServiceImpl implements ProductService {
         return response;
     }
 
-    @Override
-    public List<ProductModel> getByProducts(String product) {
-        return productRepository.findByModelOrBrandOrCategoryOrOwnYearOrCost(product);
-    }
-
     public static String generateUniqueId() {
         long timestamp = System.currentTimeMillis();
         int random = (int) (Math.random() * 100000);

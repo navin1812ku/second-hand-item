@@ -61,6 +61,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductModel> searchByProduct(String product) {
+        return productRepository.findByProduct(product);
+    }
+
+    @Override
     public Response removeProduct(String id) {
         ProductModel productModel=productRepository.findByProductId(id);
         productRepository.delete(productModel);

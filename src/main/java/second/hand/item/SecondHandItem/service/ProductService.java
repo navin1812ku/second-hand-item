@@ -11,5 +11,6 @@ public interface ProductService {
     Response addProduct(String e_mail, ProductCreationRequest productCreationRequest);
     List<ProductModel> findAll();
     List<ProductModel> getByCategory(String category);
+    List<ProductModel> searchByProduct(String product);
     Response removeProduct(String id);
 }

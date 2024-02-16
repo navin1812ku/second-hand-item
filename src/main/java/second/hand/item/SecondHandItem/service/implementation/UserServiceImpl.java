@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import second.hand.item.SecondHandItem.model.UserModel;
 import second.hand.item.SecondHandItem.model.request.UserChangePasswordRequest;
+import second.hand.item.SecondHandItem.model.request.UserLoginRequest;
 import second.hand.item.SecondHandItem.model.response.Response;
 import second.hand.item.SecondHandItem.repository.UserRepository;
 import second.hand.item.SecondHandItem.service.UserService;
@@ -40,14 +41,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response login(String e_mail,String password) {
-        UserModel model=userRepository.findByEmail(e_mail);
+    public Response login(UserLoginRequest userLoginRequest) {
+        UserModel model=userRepository.findByEmail(userLoginRequest.getEmail());
         Response response=new Response();
         if(model.equals(null)){
             response.setMessage("This Mail Id does not exists");
         }
         else{
-            if(model.getPassword().equals(password)){
+            if(model.getPassword().equals(userLoginRequest.getPassword())){
                 response.setMessage("Login successful");
             }
             else {

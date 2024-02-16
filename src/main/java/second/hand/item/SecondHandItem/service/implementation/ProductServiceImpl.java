@@ -57,11 +57,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductModel> getByCategory(String category) {
+        System.out.println(productRepository.findByCategory(category));
         return productRepository.findByCategory(category);
     }
 
     @Override
     public List<ProductModel> searchByProduct(String product) {
+        System.out.println(productRepository.findByProduct(product));
         return productRepository.findByProduct(product);
     }
 
@@ -71,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.delete(productModel);
         productModel=productRepository.findByProductId(id);
         Response response=new Response();
-        if(productModel.equals(null)){
+        if(productModel==null){
             response.setMessage("Successfully deleted");
         }
         else{

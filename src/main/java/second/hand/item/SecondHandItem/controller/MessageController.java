@@ -19,13 +19,18 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
-    @PostMapping("/new_message/{e_mail}")
-    ResponseEntity<Response> messageAdding(@PathVariable String e_mail, @RequestBody MessageCreationRequest messageCreationRequest){
-        return new ResponseEntity<>(messageService.addMessage(e_mail,messageCreationRequest), HttpStatus.CREATED);
+    @PostMapping("/newMessage")
+    ResponseEntity<Response> messageAdding(@RequestBody MessageCreationRequest messageCreationRequest){
+        return new ResponseEntity<>(messageService.addMessage(messageCreationRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/view_message/{e_mail}")
-    ResponseEntity<List<MessageModel>> messageViewing(@PathVariable String e_mail){
+    @GetMapping("/viewReceiverMessage/{e_mail}")
+    ResponseEntity<List<MessageModel>> receiverMessageViewing(@PathVariable String e_mail){
         return new ResponseEntity<>(messageService.sendMessage(e_mail),HttpStatus.FOUND);
+    }
+
+    @GetMapping("/viewSenderMessage/{e_mail}")
+    ResponseEntity<List<MessageModel>> senderMessageViewing(@PathVariable String e_mail){
+        return new ResponseEntity<>(messageService.viewMessage(e_mail),HttpStatus.FOUND);
     }
 }

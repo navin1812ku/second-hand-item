@@ -18,27 +18,27 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @PostMapping("/new_one/{e-mail}")
+    @PostMapping("/newOne/{e_mail}")
     ResponseEntity<Response> productCreation(@PathVariable String e_mail, @RequestBody ProductCreationRequest productCreationRequest){
         return new ResponseEntity<Response>(productService.addProduct(e_mail,productCreationRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/all_products")
+    @GetMapping("/set")
     ResponseEntity<List<ProductModel>> allProducts(){
         return new ResponseEntity<>(productService.findAll(),HttpStatus.OK);
     }
 
-    @GetMapping("/products_category/{category}")
+    @GetMapping("/productsCategory/{category}")
     ResponseEntity<List<ProductModel>> productsByCategory(@PathVariable String category){
         return new ResponseEntity<>(productService.getByCategory(category),HttpStatus.PROCESSING);
     }
 
-    @GetMapping("/products_category/{product}")
+    @GetMapping("/products/{product}")
     ResponseEntity<List<ProductModel>> searchByProduct(@PathVariable String product){
         return new ResponseEntity<>(productService.searchByProduct(product),HttpStatus.PROCESSING);
     }
 
-    @DeleteMapping("/delete_product/{id}")
+    @DeleteMapping("/deleteProduct/{id}")
     ResponseEntity<Response> productDeletion(@PathVariable String id){
         return new ResponseEntity<>(productService.removeProduct(id),HttpStatus.ACCEPTED);
     }

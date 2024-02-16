@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<MessageModel,String> {
-    List<MessageModel> findByReceiverMail(String e_mail);
+    List<MessageModel> findByReceiver(String e_mail);
+    List<MessageModel> findBySender(String e_mail);
     MessageModel findByMessageId(String id);
 }

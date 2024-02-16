@@ -14,8 +14,6 @@ public class MessageModel {
     @Column(nullable = false)
     private String messageId;
     @Column(nullable = false)
-    private String receiverMail;
-    @Column(nullable = false)
     private String sender;
     @Column(nullable = false)
     private String receiver;

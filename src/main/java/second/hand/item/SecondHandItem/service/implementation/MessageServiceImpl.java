@@ -17,16 +17,16 @@ public class MessageServiceImpl implements MessageService {
     MessageRepository messageRepository;
 
     @Override
-    public Response addMessage(String e_mail,MessageCreationRequest messageCreationRequest) {
+    public Response addMessage(MessageCreationRequest messageCreationRequest) {
         MessageModel messageModel=new MessageModel();
         Response response=new Response();
         String id=ProductServiceImpl.generateUniqueId();
         messageModel.setMessageId(id);
-        messageModel.setReceiverMail(e_mail);
         messageModel.setSender(messageCreationRequest.getSender());
         messageModel.setReceiver(messageCreationRequest.getReceiver());
         messageModel.setData(messageCreationRequest.getData());
-        if(messageRepository.findByMessageId(id).equals(null)){
+        messageRepository.save(messageModel);
+        if(messageRepository.findByMessageId(id)==null){
             response.setMessage("Something went wrong your message was not sent");
         }
         else{
@@ -37,6 +37,11 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageModel> sendMessage(String e_mail) {
-        return messageRepository.findByReceiverMail(e_mail);
+        return messageRepository.findByReceiver(e_mail);
+    }
+
+    @Override
+    public List<MessageModel> viewMessage(String e_mail) {
+        return messageRepository.findBySender(e_mail);
     }
 }

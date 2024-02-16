@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<ProductModel,String> {
             "a.brand = :product OR " +
             "a.category = :product OR " +
             "a.ownYear = :product OR " +
-            "a.place = :product OR"+
+            "a.place = :product OR " +
             "a.cost = :product")
     List<ProductModel> findByProduct(@Param("product") String product);
     ProductModel findByProductId(String id);

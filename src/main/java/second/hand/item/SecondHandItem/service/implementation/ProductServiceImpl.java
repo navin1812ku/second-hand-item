@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import second.hand.item.SecondHandItem.model.ProductModel;
 import second.hand.item.SecondHandItem.model.UserModel;
 import second.hand.item.SecondHandItem.model.request.ProductCreationRequest;
+import second.hand.item.SecondHandItem.model.request.ProductUpdateRequest;
 import second.hand.item.SecondHandItem.model.response.Response;
 import second.hand.item.SecondHandItem.repository.ProductRepository;
 import second.hand.item.SecondHandItem.repository.UserRepository;
@@ -79,6 +80,26 @@ public class ProductServiceImpl implements ProductService {
         else{
             response.setMessage("Something went wrong your product was not deleted");
         }
+        return response;
+    }
+
+    @Override
+    public Response updateProduct(String id, ProductUpdateRequest productUpdateRequest) {
+        ProductModel productModel=productRepository.findByProductId(id);
+        Response response=new Response();
+        if(productModel==null){
+            response.setMessage("Product not found");
+        }
+        productModel.setPhoneNumber(productUpdateRequest.getPhoneNumber()!=null ? productUpdateRequest.getPhoneNumber() : productModel.getPhoneNumber());
+        productModel.setModel(productUpdateRequest.getModel()!=null ? productUpdateRequest.getModel() : productModel.getModel());
+        productModel.setBrand(productUpdateRequest.getBrand()!=null ? productUpdateRequest.getBrand() : productModel.getBrand());
+        productModel.setCategory(productUpdateRequest.getCategory()!=null ? productUpdateRequest.getCategory() : productModel.getCategory());
+        productModel.setOwnYear(productUpdateRequest.getOwnYear()!=null ? productUpdateRequest.getOwnYear() : productModel.getOwnYear());
+        productModel.setKilometer(productUpdateRequest.getKilometer()!=null ? productUpdateRequest.getKilometer() : productModel.getKilometer());
+        productModel.setPlace(productUpdateRequest.getPlace()!=null ? productUpdateRequest.getPlace() : productModel.getPlace());
+        productModel.setCost(productUpdateRequest.getCost()!=null ? productUpdateRequest.getCost() : productModel.getCost());
+        productRepository.save(productModel);
+        response.setMessage("Updated successfully");
         return response;
     }
 

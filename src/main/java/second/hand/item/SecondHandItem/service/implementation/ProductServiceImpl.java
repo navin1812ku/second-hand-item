@@ -11,7 +11,9 @@ import second.hand.item.SecondHandItem.repository.ProductRepository;
 import second.hand.item.SecondHandItem.repository.UserRepository;
 import second.hand.item.SecondHandItem.service.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -24,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public Response addProduct(String e_mail, ProductCreationRequest productCreationRequest) {
+    public Object addProduct(String e_mail, ProductCreationRequest productCreationRequest) {
         UserModel userModel=userRepository.findByEmail(e_mail);
         ProductModel productModel=new ProductModel();
         String id=generateUniqueId();
@@ -44,11 +46,15 @@ public class ProductServiceImpl implements ProductService {
         Response response=new Response();
         if(productModel.equals(null)){
             response.setMessage("Something went wrong your product is not added to sale");
+            return response;
         }
         else{
             response.setMessage("Successfully added");
+            List<Object> productDetails=new ArrayList<>();
+            productDetails.add(response);
+            productDetails.add(productRepository.findByProductId(id));
+            return productDetails;
         }
-        return response;
     }
 
     @Override
@@ -84,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Response updateProduct(String id, ProductUpdateRequest productUpdateRequest) {
+    public Object updateProduct(String id, ProductUpdateRequest productUpdateRequest) {
         ProductModel productModel=productRepository.findByProductId(id);
         Response response=new Response();
         if(productModel==null){
@@ -100,7 +106,10 @@ public class ProductServiceImpl implements ProductService {
         productModel.setCost(productUpdateRequest.getCost()!=null ? productUpdateRequest.getCost() : productModel.getCost());
         productRepository.save(productModel);
         response.setMessage("Updated successfully");
-        return response;
+        List<Object> productDetails=new ArrayList<>();
+        productDetails.add(response);
+        productDetails.add(productRepository.findByProductId(id));
+        return productDetails;
     }//
 
     public static String generateUniqueId() {

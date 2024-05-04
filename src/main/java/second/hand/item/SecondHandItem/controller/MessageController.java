@@ -20,7 +20,7 @@ public class MessageController {
     MessageService messageService;
 
     @PostMapping("/newMessage")
-    ResponseEntity<Response> messageAdding(@RequestBody MessageCreationRequest messageCreationRequest){
+    ResponseEntity<Object> messageAdding(@RequestBody MessageCreationRequest messageCreationRequest){
         return new ResponseEntity<>(messageService.addMessage(messageCreationRequest), HttpStatus.CREATED);
     }
 

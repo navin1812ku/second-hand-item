@@ -8,7 +8,7 @@ import second.hand.item.SecondHandItem.model.response.Response;
 import java.util.List;
 
 public interface MessageService {
-    Response addMessage(MessageCreationRequest messageCreationRequest);
+    Object addMessage(MessageCreationRequest messageCreationRequest);
     List<MessageModel> sendMessage(String e_mail);
     List<MessageModel> viewMessage(String e_mail);
 }

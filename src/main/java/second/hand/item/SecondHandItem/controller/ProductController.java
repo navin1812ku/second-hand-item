@@ -1,10 +1,8 @@
 package second.hand.item.SecondHandItem.controller;
 
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import second.hand.item.SecondHandItem.model.ProductModel;
 import second.hand.item.SecondHandItem.model.request.ProductCreationRequest;
@@ -13,6 +11,7 @@ import second.hand.item.SecondHandItem.model.response.Response;
 import second.hand.item.SecondHandItem.service.ProductService;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/product")
@@ -21,8 +20,8 @@ public class ProductController {
     ProductService productService;
 
     @PostMapping("/newOne/{e_mail}")
-    public ResponseEntity<Response> productCreation(@PathVariable String e_mail, @RequestBody ProductCreationRequest productCreationRequest){
-        return new ResponseEntity<Response>(productService.addProduct(e_mail,productCreationRequest), HttpStatus.CREATED);
+    public ResponseEntity<Object> productCreation(@PathVariable String e_mail, @RequestBody ProductCreationRequest productCreationRequest){
+        return new ResponseEntity<>(productService.addProduct(e_mail,productCreationRequest), HttpStatus.CREATED);
     }
 
     @GetMapping("/set")
@@ -31,7 +30,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Response> productUpdate(@PathVariable String id, @RequestBody ProductUpdateRequest productUpdateRequest){
+    public ResponseEntity<Object> productUpdate(@PathVariable String id, @RequestBody ProductUpdateRequest productUpdateRequest){
         return new ResponseEntity<>(productService.updateProduct(id,productUpdateRequest),HttpStatus.OK);
     }
 

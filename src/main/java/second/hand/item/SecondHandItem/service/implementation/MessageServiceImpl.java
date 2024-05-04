@@ -8,7 +8,9 @@ import second.hand.item.SecondHandItem.model.response.Response;
 import second.hand.item.SecondHandItem.repository.MessageRepository;
 import second.hand.item.SecondHandItem.service.MessageService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -17,7 +19,7 @@ public class MessageServiceImpl implements MessageService {
     MessageRepository messageRepository;
 
     @Override
-    public Response addMessage(MessageCreationRequest messageCreationRequest) {
+    public Object addMessage(MessageCreationRequest messageCreationRequest) {
         MessageModel messageModel=new MessageModel();
         Response response=new Response();
         String id=ProductServiceImpl.generateUniqueId();
@@ -28,11 +30,15 @@ public class MessageServiceImpl implements MessageService {
         messageRepository.save(messageModel);
         if(messageRepository.findByMessageId(id)==null){
             response.setMessage("Something went wrong your message was not sent");
+            return response;
         }
         else{
             response.setMessage("Message was successfully sent");
+            List<Object> messageDetails=new ArrayList<>();
+            messageDetails.add(response);
+            messageDetails.add(messageRepository.findByMessageId(id));
+            return messageDetails;
         }
-        return response;
     }
 
     @Override
